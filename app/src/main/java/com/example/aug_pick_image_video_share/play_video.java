@@ -36,6 +36,9 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class play_video extends AppCompatActivity {
+
+    static int add;
+    ImageView restart;
     private RelativeLayout mainvid;
     private SeekBar seekvolume;
     AudioManager audioManager;
@@ -55,6 +58,7 @@ public class play_video extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
+        restart=(ImageView)findViewById(R.id.restart);
 
         mainvid = (RelativeLayout) findViewById(R.id.mainvid);
 
@@ -202,15 +206,19 @@ public class play_video extends AppCompatActivity {
 
             }
         });
+//
+
 
         mainvid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                 visiblity();
-
-                // Toast.makeText(v.getContext(), "Main layout", Toast.LENGTH_SHORT).show();
-
+                add=add+1;
+                if ( add % 2 == 0){
+                    visiblity();
+                }else {
+                    visiblity();
+                }
             }
         });
 
@@ -218,15 +226,29 @@ public class play_video extends AppCompatActivity {
     }
 
     public void visiblity() {
+
+        seekbrightness.setVisibility(View.VISIBLE);
+        seekvolume.setVisibility(View.VISIBLE);
+        seek.setVisibility(View.VISIBLE);
+        forwad.setVisibility(View.VISIBLE);
+        backward.setVisibility(View.VISIBLE);
+        restart.setVisibility(View.VISIBLE);
+        play.setVisibility(View.VISIBLE);
+        total.setVisibility(View.VISIBLE);
+        current.setVisibility(View.VISIBLE);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-
-
-
-
-
+                seekbrightness.setVisibility(View.GONE);
+                seekvolume.setVisibility(View.GONE);
+                seek.setVisibility(View.GONE);
+                forwad.setVisibility(View.GONE);
+                backward.setVisibility(View.GONE);
+                restart.setVisibility(View.GONE);
+                play.setVisibility(View.GONE);
+                total.setVisibility(View.GONE);
+                current.setVisibility(View.GONE);
             }
         }, 3000);
     }

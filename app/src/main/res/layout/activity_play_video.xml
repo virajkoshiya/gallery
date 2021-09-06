@@ -83,7 +83,7 @@
         <SeekBar
             android:id="@+id/seek"
             android:layout_width="match_parent"
-            android:layout_height="10dp"></SeekBar>
+            android:layout_height="20dp"></SeekBar>
 
         <LinearLayout
             android:id="@+id/btns"
@@ -91,7 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+          >
 
             <ImageView
                 android:id="@+id/backward"

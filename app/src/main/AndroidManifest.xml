@@ -19,6 +19,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:supportsPictureInPicture="true"
             android:name=".play_video"
             android:exported="true" />
         <activity
