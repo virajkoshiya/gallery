@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/opfacebook"
+    android:title="facebook" />
+
+    <item
+        android:id="@+id/opwhatsapp"
+        android:title="whatsapp"/>
+
+    <item
+        android:id="@+id/opinstagram"
+        android:title="Instagram"/>
+
+    <item
+        android:id="@+id/opall"
+        android:title="All"/>
+</menu>
