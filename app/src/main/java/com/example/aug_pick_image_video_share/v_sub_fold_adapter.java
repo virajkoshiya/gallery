@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class v_sub_fold_adapter extends RecyclerView.Adapter {
 
 
-   static  ArrayList<V_sub_fold_facer> sub_videos;
+  public ArrayList<V_sub_fold_facer> sub_videos;
     Context sub_v_ad;
 
     public v_sub_fold_adapter(ArrayList<V_sub_fold_facer> sub_videos, Context sub_v_ad) {
@@ -56,14 +56,14 @@ public class v_sub_fold_adapter extends RecyclerView.Adapter {
         ((sub_video_holder) holder).video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Utils.sub_videos=sub_videos;
                 Intent intent = new Intent(v.getContext(),play_video.class);
                 int p=position;
                 String path = sub_v_facer.getV_s_f_Path();
                 intent.putExtra("play",path);
                 intent.putExtra("position",p);
 
-                Log.e("pathss", "onClick: "+path );
+             //   Log.e("pathss", "onClick: "+path );
 
                 v.getContext().startActivity(intent);
 

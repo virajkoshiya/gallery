@@ -13,8 +13,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +53,7 @@ public class V_sub_fold_display extends AppCompatActivity {
         vSubPopupmenu = (ImageView) findViewById(R.id.v_sub_popupmenu);
         recycler = (RecyclerView) findViewById(R.id.recycler);
 
-        String folderpath = getIntent().getStringExtra("fpath");
+         folderpath = getIntent().getStringExtra("fpath");
 
         Log.e("folderpathsub", "onCreate: "+folderpath);
 
@@ -102,56 +104,54 @@ public class V_sub_fold_display extends AppCompatActivity {
             }
         });
 
+        vSubPopupmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu pop=new PopupMenu(V_sub_fold_display.this,v);
+
+                pop.inflate(R.menu.pop_vid_list);
+                pop.show();
+                pop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        menuItem(item);
+                        return false;
+                    }
+                });
+
+            }
+        });
+
 
     }
 
+    public boolean menuItem(MenuItem item)
+    {
 
-    // old method
+        switch (item.getItemId())
+        {
+            case R.id.vid_date:
 
-//    public ArrayList<V_sub_fold_facer> getAll_video_BysubFolder(String path){
-//        ArrayList<V_sub_fold_facer> sub_fold_videos = new ArrayList<>();
-//        Uri allVideosuri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-//        String[] projection = { MediaStore.Video.VideoColumns.DATA ,MediaStore.Video.Media.DISPLAY_NAME,
-//                MediaStore.Video.Media.SIZE};
-//        Cursor cursor = V_sub_fold_display.this.getContentResolver().query( allVideosuri, projection, MediaStore.Video.Media.DATA + " like ? ", new String[] {"%"+path+"%"}, null);
-//        try {
-//            cursor.moveToFirst();
-//            do{
-//                V_sub_fold_facer videofacer = new V_sub_fold_facer();
-//
-//                int data = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-//                String list=cursor.getString(data);
-//              //  Log.e("File",""+list);
-//
-//                videofacer.setV_s_f_name(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)));
-//
-//             //   Log.e("videoname", "doInBackground: "+(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME))));
-//                videofacer.setV_s_f_Path(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)));
-//
-//                String datapath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
-//
-//                // Log.e("videopathff", "doInBackground: "+datapath);
-//
-//                videofacer.setV_s_f_Size(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)));
-//
-//                videofacer.getV_s_f_Path();
-//
-//            //    Log.e("lll", "doInBackground: "+ );
-//
-//                sub_fold_videos.add(videofacer);
-//
-//            }while(cursor.moveToNext());
-//            cursor.close();
-//            ArrayList<V_sub_fold_facer> reSelection = new ArrayList<>();
-//            for(int i = sub_fold_videos.size()-1;i > -1;i--){
-//                reSelection.add(sub_fold_videos.get(i));
-//            }
-//            sub_fold_videos = reSelection;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return sub_fold_videos;
-//    }
+                new refresh(folderpath,MediaStore.Video.Media.DATE_ADDED).execute();
+                Toast.makeText(this, "Sorted by Date : "+item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.vid_size:
+              //  Toast.makeText(this, "Sorted by size", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.vid_name:
+
+                new refresh(folderpath,MediaStore.Video.Media.DISPLAY_NAME).execute();
+
+
+                Toast.makeText(this, "Sorted by name", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
+        }
+        // Toast.makeText(getApplicationContext(),"Test",Toast.LENGTH_SHORT).show();
+    }
+
+
 
 
     public class refresh extends AsyncTask<Void,Void,Void>{
@@ -161,13 +161,15 @@ public class V_sub_fold_display extends AppCompatActivity {
 
         public refresh(String path, String orderby) {
             this.path = path;
-            Orderby = orderby;
+            this.Orderby = orderby;
             allvideos.clear();
         }
 
 
         @Override
         protected Void doInBackground(Void... voids) {
+
+
             Uri video = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
             String[] projection = { MediaStore.Video.VideoColumns.DATA ,MediaStore.Video.Media.DISPLAY_NAME,
                     MediaStore.Video.Media.SIZE};

@@ -58,7 +58,7 @@ public class ImageDisplay extends AppCompatActivity implements itemClickListener
 
         foldePath =  getIntent().getStringExtra("img");
 
-       // Log.e("ppppp", "onCreate: "+foldePath );
+      //  Log.e("985", "onCreate: "+foldePath );
 
 
         allpictures = new ArrayList<>();

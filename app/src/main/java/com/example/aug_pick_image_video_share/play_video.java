@@ -36,7 +36,8 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class play_video extends AppCompatActivity {
-
+    String intentpathfromlist;
+    int positionpop;
     static int add;
     ImageView restart;
     private RelativeLayout mainvid;
@@ -54,11 +55,12 @@ public class play_video extends AppCompatActivity {
     double current_pos, total_duration;
     private int videoTotalTime;
     ArrayList<V_sub_fold_facer> change;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
-        restart=(ImageView)findViewById(R.id.restart);
+        restart = (ImageView) findViewById(R.id.restart);
 
         mainvid = (RelativeLayout) findViewById(R.id.mainvid);
 
@@ -81,24 +83,17 @@ public class play_video extends AppCompatActivity {
 
 
         // v_sub_fold_adapter mathi lidheli tya static declare kreli che
-        change = v_sub_fold_adapter.sub_videos;
+        change = Utils.sub_videos;
 
         String s = change.get(0).getV_s_f_Path();
-        Log.e("pathrrr", "onCreate: " + s);
+        //  Log.e("pathrrr", "onCreate: " + s);
 
 
         med = new MediaController(this);
 
-        // intent come from v_sub_fold_adapter
-
-        pathsinglevideo = getIntent().getStringExtra("play");
+       // positionpop = getIntent().getIntExtra("intposition", 0);
         pos = getIntent().getIntExtra("position", 0);
-        // old method
-
-        //  exoPlayerView.setVideoPath(pathsinglevideo);
-        //   exoPlayerView.setMediaController(med);
-        //  med.setAnchorView(exoPlayerView);
-        //  exoPlayerView.start();
+        intentpathfromlist = getIntent().getStringExtra("vidgepath");
 
 
         seek = (SeekBar) findViewById(R.id.seek);
@@ -214,10 +209,10 @@ public class play_video extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                add=add+1;
-                if ( add % 2 == 0){
+                add = add + 1;
+                if (add % 2 == 0) {
                     visiblity();
-                }else {
+                } else {
                     visiblity();
                 }
             }
@@ -251,14 +246,13 @@ public class play_video extends AppCompatActivity {
                 total.setVisibility(View.GONE);
                 current.setVisibility(View.GONE);
             }
-        }, 3000);
+        }, 4000);
     }
 
 
     public void PlayVideo(int position) {
         try {
             exoPlayerView.setVideoURI(Uri.parse(change.get(position).getV_s_f_Path()));
-
             exoPlayerView.requestFocus();
             exoPlayerView.start();
             pos = position;
@@ -354,7 +348,6 @@ public class play_video extends AppCompatActivity {
 
         }
 
-        //   exoPlayerView.start();
 
     }
 
@@ -372,93 +365,4 @@ public class play_video extends AppCompatActivity {
 
     }
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//    public void play(View view){
-//
-//        if (exoPlayerView.isPlaying()){
-//            exoPlayerView.resume();
-//        }
-//        else {
-//            exoPlayerView.start();
-//        }
-//
-//     //   exoPlayerView.start();
-//
-////        new CountDownTimer(exoPlayerView.getDuration(), 1) {
-////            @RequiresApi(api = Build.VERSION_CODES.N)
-////            @Override
-////            public void onTick(long millisUntilFinished) {
-////
-////                seek.setProgress(exoPlayerView.getCurrentPosition(),true);
-////
-////            }
-////
-////            @Override
-////            public void onFinish() {
-////
-////
-////
-////            }
-////        }.start();
-//
-//    }
-//
-//    public void pause(View view){
-//
-//        exoPlayerView.pause();
-//
-//    }
-//
-//    public void restart(View view){
-//        exoPlayerView.stopPlayback();
-//        exoPlayerView.setVideoPath(pathsinglevideo);
-//        exoPlayerView.start();
-//
-//
-//    }
-
-
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// own method for forwad and backward
-
-//    int increse ;
-//
-//                        for (int i = 1; i <change.size() ; i++) {
-//
-//        String s = change.get(i).getV_s_f_Path();
-//
-//        Log.e("fromi", "onClick: "+s );
-//
-//        String ply=pathsinglevideo;
-//
-//        Log.e("oldpath", "onClick: "+ply );
-//
-//        if (s == ply){
-//
-//        int  iincrese=i;
-//
-//        Log.e("increase", "onClick: "+iincrese );
-//
-//        //  int kk = increse+1;
-//
-//        String next = change.get(iincrese).getV_s_f_Path();
-//
-//        // Log.e("next", "onClick: "+next);
-//
-//        exoPlayerView.setVideoPath(next);
-//        //   exoPlayerView.setMediaController(med);
-//        //  med.setAnchorView(exoPlayerView);
-//        exoPlayerView.start();
-//
-//        }
-//
-//
-//
-//        }
-//
-//        Toast.makeText(v.getContext(), "FORWAD", Toast.LENGTH_SHORT).show();
