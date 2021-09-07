@@ -69,6 +69,8 @@ public class listadapter extends RecyclerView.Adapter <listadapter.detailsholder
                 .apply(new RequestOptions().centerCrop())
                 .into(holder.listimg);
 
+        Log.e("ppath", "onBindViewHolder: "+folder.getPicturePath() );
+
         String path = folder.getPicturePath();
       //  holder.listpath.setText(path);
         File file = new File(folder.getPicturePath());

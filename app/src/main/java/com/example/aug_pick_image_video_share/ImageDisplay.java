@@ -205,7 +205,7 @@ String orderby;
 
                     pic.getPicturePath();
 
-                  //  Log.e("ll", "doInBackground: "+  pic.getPicturePath() );
+                  //  Log.e("ll", "doInBackground: "+  pic.getPicturePath());
 
 
                    // String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));

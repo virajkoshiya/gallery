@@ -94,6 +94,7 @@ public class play_video extends AppCompatActivity {
         pathsinglevideo = getIntent().getStringExtra("play");
         pos = getIntent().getIntExtra("position", 0);
         // old method
+
         //  exoPlayerView.setVideoPath(pathsinglevideo);
         //   exoPlayerView.setMediaController(med);
         //  med.setAnchorView(exoPlayerView);
